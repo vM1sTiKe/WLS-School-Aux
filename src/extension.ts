@@ -6,13 +6,11 @@ import * as vscode from 'vscode';
 // Your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
 
-	//search if the WSL extension is available
-	if(!vscode.extensions.all.find(ext => ext.id == "ms-vscode-remote.remote-wsl")) {
-		vscode.window.showInformationMessage("Non executing cause no WSL available")
-		return
-	}
+	const available = vscode.extensions.all.find(ext => ext.id == "ms-vscode-remote.remote-wsl")
 
 	context.subscriptions.push( vscode.commands.registerCommand("wlsschoolaux.compile", async () => {
+		if(!available) return
+
 		const workSpaces = vscode.workspace.workspaceFolders
 
 		//verifies if only one workspace being used
@@ -46,6 +44,11 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	}) );
 
+	//search if the WSL extension is available
+	if(!available) {
+		vscode.window.showInformationMessage("Non executing cause no WSL available")
+		return
+	}
 	if( !vscode.workspace.name?.includes("WSL") ) vscode.commands.executeCommand("remote-wsl.reopenInWSL")
 	
 }
