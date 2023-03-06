@@ -46,7 +46,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	}) );
 
-	if( vscode.workspace.name?.includes("WSL") ) vscode.commands.executeCommand("remote-wsl.reopenInWSL")
+	if( !vscode.workspace.name?.includes("WSL") ) vscode.commands.executeCommand("remote-wsl.reopenInWSL")
 	
 }
 

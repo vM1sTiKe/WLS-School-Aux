@@ -42,8 +42,7 @@ async function activate(context) {
         vscode.workspace.fs.writeFile(vscode.Uri.from({ scheme: uri.scheme, path: `${uri.path}/makefile` }), Buffer.from(makeFileSTR.map(str => str.join(" ")).join("\n")));
     }));
     if (!vscode.workspace.name?.includes("WSL"))
-        return;
-    vscode.commands.executeCommand("remote-wsl.reopenInWSL");
+        vscode.commands.executeCommand("remote-wsl.reopenInWSL");
 }
 exports.activate = activate;
 // This method is called when your extension is deactivated
